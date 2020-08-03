@@ -12,6 +12,8 @@ namespace RBD {
     public:
       SerialManager();
       void start();
+      void start(Stream *_serial);
+      void start(Serial_ *_serial);
       void setFlag(char value);
       void setDelimiter(char value);
       bool onReceive();
@@ -20,8 +22,8 @@ namespace RBD {
       String getParam();
       bool isCmd(String value);
       bool isParam(String value);
-      template <typename T> void print(T value){Serial.print(value);}
-      template <typename T> void println(T value){Serial.println(value);}
+      template <typename T> void print(T value){SerialManager::_serial->print(value);}
+      template <typename T> void println(T value){SerialManager::_serial->println(value);}
     private:
       int _position;
       char _char;
@@ -29,6 +31,7 @@ namespace RBD {
       char _delimiter = ',';
       String _buffer  = "";
       String _value   = "";
+      Stream *_serial;
   };
 }
 
